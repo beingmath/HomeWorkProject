@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jxau.soft.dao.StudentInsertWork">
+ 
+    <select id="selectUser" resultType="jxau.soft.pojo.User" parameterType="jxau.soft.pojo.User">
+        select * from user where username = #{username}
+    </select>
+    
+    <select id="selectCommitStudentList" resultMap="WorkMapping" parameterType="Integer">
+        select id,percent,studentname,committime,filename,workid from student_work where workid = ${workid} and status="已提交";
+    </select>
+    <update id="updatePercent" parameterType="hashmap">
+    update student_work set percent=#{percent} where id=#{id}
+    </update>
+     <update id="updateWorkUpload" parameterType="jxau.soft.pojo.Work">
+    update student_work set committime=#{committime},status=#{status},filename=#{filename} where studentname=#{studentname} and workid=#{id}
+    </update>
+  <insert id="insertWorks" parameterType="jxau.soft.pojo.Work">
+ insert into student_work(lessonid,studentname,workid,workname,endtime,committime,status,percent) values (#{lessonid},#{studentname},#{id},#{workname},#{endtime},#{committime},#{status},#{percent})
+ </insert>
+     <select id="selectWorksByStudentnameAndLessonid" resultMap="WorkMapping" parameterType="hashmap">
+        select * from student_work where studentname = #{studentname} and lessonid=#{lessonid}
+    </select>
+      <resultMap type="jxau.soft.pojo.Work" id="WorkMapping">
+ <id property="primary_id" column="id" />
+ <result property="lessonid" column="lessonid"/>
+ <result property="studentname" column="studentname"/>
+  <result property="id" column="workid"/>
+ <result property="workname" column="workname"/>
+ <result property="endtime" column="endtime"/>
+ <result property="committime" column="committime"/>
+ <result property="filename" column="filename"/>
+ <result property="status" column="status"/>
+ <result property="percent" column="percent"/>
+ </resultMap>
+
+</mapper>

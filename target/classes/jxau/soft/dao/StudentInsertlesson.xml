@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jxau.soft.dao.StudentInsertlesson">
+ 
+    <select id="selectUser" resultType="jxau.soft.pojo.User" parameterType="jxau.soft.pojo.User">
+        select * from user where username = #{username}
+    </select>
+  <insert id="StudentInsertLesson" parameterType="hashmap">
+ insert into student_lesson(studentname,lessonid) values (#{studentname},#{lessonid})
+ </insert>
+     <select id="selectUserBy" resultType="jxau.soft.pojo.User" parameterType="jxau.soft.pojo.User">
+        select * from user where username = #{username} and password=#{password}
+    </select>
+    <select id="selectStudentLessonByLessonid" resultType="java.lang.String" parameterType="jxau.soft.pojo.User">
+        select studentname from student_lesson where lessonid = #{lessonid}
+    </select>
+   
+</mapper>
